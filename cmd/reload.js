@@ -6,9 +6,9 @@ exports.run = (bot, msg, params) => {
     command = bot.aliases.get(params[0]);
   }
   if (!command) {
-    return msg.channel.sendMessage(`I cannot find the command: ${params[0]}`);
+    return msg.channel.send(`I cannot find the command: ${params[0]}`);
   } else {
-    msg.channel.sendMessage(`Reloading: ${command}`)
+    msg.channel.send(`Reloading: ${command}`)
     .then(m => {
       bot.reload(command)
       .then(() => {

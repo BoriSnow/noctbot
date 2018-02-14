@@ -3,6 +3,7 @@ const bot = new Discord.Client();
 const config = require("./config.json");
 const fs = require("fs");
 //const sql = require("sqlite");
+//sql.open("./char.sqlite");
 
 bot.commands = new Discord.Collection();
 fs.readdir("./cmd/", (err, files) => {
@@ -22,7 +23,7 @@ bot.on("ready", () => {
 
 bot.on("message", msg => {
   if (!msg.content.startsWith(config.prefix)||msg.author.bot) return;
-  let args = msg.content.slice(config.prefix.length).trim().split(/ +/g); //removes prefix
+  let args = msg.content.slice(config.prefix.length).trim().split(/ +/g);
   let command = args.shift().toLowerCase();
   let params = msg.content.split(" ").slice(1); //removes command
   let cmd = bot.commands.get(command);
