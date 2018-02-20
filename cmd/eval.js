@@ -4,9 +4,9 @@ exports.run = (bot, msg, params = []) => {
     var evaled = eval(code);
     if (typeof evaled !== 'string')
       evaled = require('util').inspect(evaled);
-    msg.channel.sendMessage("```xl\n" + clean(evaled) + "\n```");
+    msg.channel.send("```xl\n" + clean(evaled) + "\n```");
   } catch (err) {
-    msg.channel.sendMessage("`ERROR` ```xl\n" +
+    msg.channel.send("`ERROR` ```xl\n" +
       clean(err) +
       "\n```");
   }

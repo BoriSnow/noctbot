@@ -2,8 +2,6 @@ const Discord = require("discord.js");
 const bot = new Discord.Client();
 const config = require("./config.json");
 const fs = require("fs");
-//const sql = require("sqlite");
-//sql.open("./char.sqlite");
 
 bot.commands = new Discord.Collection();
 fs.readdir("./cmd/", (err, files) => {
