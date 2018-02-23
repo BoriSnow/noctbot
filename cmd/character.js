@@ -11,7 +11,9 @@ if (msg.mentions.members.size == 1) {
 sql.get(`SELECT name, desc FROM chars WHERE userID = "${msg.mentions.members.first().id}"`);
 }
 if(name){
-sql.get(`SELECT userID, desc FROM chars WHERE name = "name"`);
+sql.get(`SELECT userID, desc FROM chars WHERE name = "name"`).then(row => {
+  if(!row) return msg.reply("No characters by that name were found...");
+})
 }
 if(name && msg.mentions.members.size == 1) {
 sql.get(`SELECT name, desc FROM chars WHERE userID = "${msg.mentions.members.first().id}" AND name = "name"`).then(row => {
@@ -35,19 +37,8 @@ else if (msg.member.roles.some(r=>["Bio Approver"].includes(r.name)) ){
   }
 /*****************************************************/
   else if(subcmd == "del"){
-    if(msg.mentions.members.size == 1 && !name){
-    sql.run(`DELETE FROM chars WHERE userID = "${msg.mentions.members.first().id}"`).catch(() =>
-  {
-    console.error;
-    console.log("Number of rows deleted: " + result.affectedRows);
-    return msg.reply("Characters successfully deleted.");
-  });
-    }
-else {
-return msg.reply("Please specify a user's characters to delete, or a specific character!!");
-  }
     if(msg.mentions.members.size == 1 && name){
-      sql.get(`SELECT* FROM chars WHERE name = "name" AND userID = "${msg.mentions.users.first().id}"`).then(row => {
+      sql.get(`SELECT * FROM chars WHERE name = "name" AND userID = "${msg.mentions.members.first().id}"`).then(row => {
         if(!row){
         return msg.reply("There is no such character!");
         }
@@ -60,9 +51,22 @@ return msg.reply("Please specify a user's characters to delete, or a specific ch
         });
         }
     });
-  }}
+  }
+  else {
+  return msg.reply("Please specify a specific character to delete!!");
+    }}
   /***************************************************/
   else if(subcmd == "edit"){
+    if(msg.mentions.members.size == 1 && name && desc){
+      sql.get(`SELECT * FROM chars WHERE name = "name" AND userID = "${msg.mentions.members.first().id}"`).then(row => {
+        if(!row){
+          return msg.reply("There is no such character!");
+        }
+        else{
+          sql.run(`UPDATE chars SET desc = info WHERE name = "name" AND userID = "${msg.mentions.members.first().id}"`);
+        }
+      })
+    }
   }
   else{
     msg.reply("Invalid subcommand! Use '<info char' for correct usage!");
