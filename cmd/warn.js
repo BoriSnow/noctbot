@@ -1,14 +1,19 @@
 exports.run = (bot, msg, [mention, ...reason]) => {
 
-  if (msg.member.roles.some(r=>["Support Team", "Super Admin", "Head Dev"].includes(r.name)) ){
+  if (msg.member.roles.some(r=>["Support Team", "Super Admin", "Head Developer"].includes(r.name)) ){
 
 if(msg.mentions.members.size == 0)
  return msg.reply("Please mention a user to warn!");
 
 const warnMember = msg.mentions.members.first();
-  warnMember.send("You were warned for: " + reason);
+  warnMember.send("You were warned for: " + reason).then( member => {
   msg.reply(`${member.user.username} was warned.`);
-//  bot.channels.get('413058308438491156').send(`${member.user.username} was warned for: ` + reason);
+    msg.channels.get(413058308438491156).send({embed: {
+      color : 23725092,
+      description : `${member.user.username} was warned`,
+      timestamp: new Date()
+    }});
+  });
 }
 else return msg.reply("Invalid Permissions!");
 };

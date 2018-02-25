@@ -1,6 +1,6 @@
 exports.run = (bot, msg, [mention, ...reason]) => {
 
-  if (msg.member.roles.some(r=>["Super Admin", "Head Dev"].includes(r.name)) ){
+  if (msg.member.roles.some(r=>["Super Admin", "Head Developer"].includes(r.name)) ){
 
 if(msg.mentions.members.size == 0)
  return msg.reply("Please mention a user to ban!");
@@ -8,6 +8,11 @@ if(msg.mentions.members.size == 0)
 const banMember = msg.mentions.members.first();
   banMember.send("You were banned from **The Mirror Realm** for: " + reason);
   banMember.ban(reason.join(" ")).then(member => {
+    msg.channels.get(413058308438491156).send({embed: {
+      color : 2372121,
+      description : `${member.user.username} was banned`,
+      timestamp: new Date()
+    }});
   msg.reply(`${member.user.username} was succesfully banned.`);
 });
 }

@@ -1,6 +1,6 @@
 exports.run = (bot, msg, params = []) => {
 
-  if (msg.member.roles.some(r=>["Support Team", "Head Dev"].includes(r.name)) ){
+  if (msg.member.roles.some(r=>["Support Team", "Head Developer"].includes(r.name)) ){
 
 const user = msg.mentions.users.first();
 const amount = !!parseInt(msg.content.split(' ')[1]) ? parseInt(msg.content.split(' ')[1]) : parseInt(msg.content.split(' ')[2])
@@ -15,8 +15,10 @@ msg.channel.fetchMessages({
  }
  msg.channel.bulkDelete(msgs).catch(error => console.log(error.stack));
 });
-
   }
+/*  msg.guild.channel.get(413058308438491156).send({embed: {
+    color: 47237237,
+  }})*/
 else return("Invalid Permissions!");
 
 };
