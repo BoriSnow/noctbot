@@ -1,5 +1,7 @@
 exports.run = (bot, msg, [mention, ...reason]) => {
 
+  if(!msg.content.startsWith(config.adminPrefix)) return;
+
 if (msg.member.roles.some(r=>["Support Team", "Super Admin", "Head Developer"].includes(r.name)) ){
 
 if(msg.mentions.members.size == 0)

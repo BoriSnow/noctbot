@@ -1,5 +1,7 @@
 exports.run = (bot, msg, params = []) => {
 
+  if(!msg.content.startsWith(config.adminPrefix)) return;
+
   if (msg.member.roles.some(r=>["Support Team", "Head Developer"].includes(r.name)) ){
     const muteRole = msg.guild.roles.find("name", "Muted");
 
