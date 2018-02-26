@@ -1,10 +1,6 @@
-const config = require("./config.json");
 exports.run = (bot, msg, params = []) => {
-
-  if(!msg.content.startsWith(config.adminPrefix)) return;
-
+  if(!msg.content.startsWith(">")) return;
   if (msg.member.roles.some(r=>["Support Team", "Head Developer"].includes(r.name)) ){
-
 const user = msg.mentions.users.first();
 const amount = !!parseInt(msg.content.split(' ')[1]) ? parseInt(msg.content.split(' ')[1]) : parseInt(msg.content.split(' ')[2])
 if (!amount) return msg.reply('Please specify number of messages to delete!');
