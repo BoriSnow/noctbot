@@ -1,5 +1,5 @@
 const sql = require("sqlite");
-sql.open("./char.sqlite");
+sql.open("./mirrorrealm.sqlite");
 exports.run = (bot, msg, [subcmd, mention, name, ...desc]) => {
   let info = desc.toString();
   info = info.split(',').join(" ");
