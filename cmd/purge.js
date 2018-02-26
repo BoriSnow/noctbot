@@ -1,3 +1,4 @@
+const config = require("./config.json");
 exports.run = (bot, msg, params = []) => {
 
   if(!msg.content.startsWith(config.adminPrefix)) return;

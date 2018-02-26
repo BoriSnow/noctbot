@@ -22,7 +22,7 @@ bot.on("ready", () => {
 });
 
 bot.on("message", msg => {
-  if (!msg.content.startsWith(config.prefix)||!msg.content.startsWith(config.adminPrefix)||msg.author.bot) return;
+  if (!msg.content.startsWith(config.prefix)&&!msg.content.startsWith(config.adminPrefix)||msg.author.bot) return;
   let args = msg.content.slice(config.prefix.length).trim().split(/ +/g);
   let command = args.shift().toLowerCase();
   let params = msg.content.split(" ").slice(1); //removes command
