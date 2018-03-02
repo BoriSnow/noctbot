@@ -3,24 +3,28 @@ sql.open("./mirrorrealm.sqlite");
 exports.run = (bot, msg, [subcmd, mention, name, ...desc]) => {
   let info = desc.toString();
   info = info.split(',').join(" ");
-if (subcmd == "list"){
-if (!name){
-return msg.reply("Please enter the name of the character!");
-}
-if (msg.mentions.members.size == 1) {
-sql.get(`SELECT name, desc FROM chars WHERE userID = "${msg.mentions.members.first().id}"`);
-}
-if(name){
-sql.get(`SELECT userID, desc FROM chars WHERE name = "name"`).then(row => {
-  if(!row) return msg.reply("No characters by that name were found...");
-})
-}
-if(name && msg.mentions.members.size == 1) {
-sql.get(`SELECT name, desc FROM chars WHERE userID = "${msg.mentions.members.first().id}" AND name = "name"`).then(row => {
-  if(!row) return msg.reply("No such character!");
-msg.channel.send(`${msg.mentions.members.first()}'s Character: \n` + `${row.name}` + `\n` + `${row.desc}`);
-});
-}
+if (subcmd == "list")
+{
+  if (msg.mentions.members.size == 1)
+  {
+    sql.get(`SELECT name, desc FROM chars WHERE userID = "${msg.mentions.members.first().id}"`);
+  }
+  if (!name)
+    return msg.reply("Please enter the name of the character!");
+  else
+  {
+    sql.get(`SELECT userID, desc FROM chars WHERE name = "name"`).then(row => {
+      if(!row) return msg.reply("No characters by that name were found...");
+    })
+  }
+  if(name && msg.mentions.members.size == 1)
+  {
+  sql.get(`SELECT name, desc FROM chars WHERE userID = "${msg.mentions.members.first().id}" AND name = "name"`).then(row =>
+    {
+      if(!row) return msg.reply("No such character!");
+      msg.channel.send(`${msg.mentions.members.first()}'s Character: \n` + `${row.name}` + `\n` + `${row.desc}`);
+    });
+  }
 }
 else if (msg.member.roles.some(r=>["Bio Approver"].includes(r.name)) ){
   const owner = msg.mentions.users.first();
