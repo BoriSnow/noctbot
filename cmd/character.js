@@ -74,7 +74,7 @@ else if (msg.member.roles.some(r=>["Bio Approver"].includes(r.name)) ){
         if(!row) return msg.reply("There is no such character!");
         else
         {
-          sql.run(`UPDATE chars SET desc = "info" WHERE name = "name" AND userID = "${msg.mentions.members.first().id}"`);
+          sql.run(`UPDATE chars SET desc = info WHERE name = "name" AND userID = "${msg.mentions.members.first().id}"`);
           //confirmation message
         }
       })
