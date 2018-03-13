@@ -30,6 +30,9 @@ bot.on("message", msg => {
   if(cmd) {
     cmd.run(bot, msg, args, params);
   }
+  sql.get(`SELECT * FROM currency WHERE userID = "${msg.author.id}"`).then(row => {
+    if(!row) sql.run("INSERT INTO currency (userID, bal) VALUES (?, ?)", [msg.author.id, 1500]);
+  })
 });
 
 bot.on("error", console.error);
